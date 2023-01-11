@@ -1,0 +1,80 @@
+- var title = '【道恩行事曆】共享信箱收集'
+
+<!DOCTYPE html>
+html(lang="zh-TW", data-theme="halloween")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title #{title}
+
+    //- css
+    link(rel="stylesheet", href="dist/tailwind.min.css")
+    link(rel="stylesheet", href="dist/style.min.css")
+
+  body
+    
+    #app.mx-auto.p-8.artboard.artboard-horizontal.phone-1.tracking-widest
+
+      .hero
+        .hero-content.text-center
+          .max-w-md
+            h1.mb-4.leading-snug.text-5xl.font-bold 【道恩行事曆】<br/>共享信箱收集
+
+            template(v-if="!success")
+              p.mb-4.text-left.text-lg 與您分享道務行事曆，依照以下步驟填寫資料即可：
+              ol.list-decimal.pl-5.text-left.text-lg
+                li 點擊登入按鈕，登入 Google 帳號
+                li 填寫「姓名」，選擇「天職」
+                li 點擊「提交」
+            
+            //- 已送出成功
+            template(v-else)
+              p.py-8.text-center.font-bold.text-2xl.text-yellow-400 您的資料已送出。
+
+      .divider
+
+      //- 尚未送出資料
+      template(v-if="!success")
+
+        //- 未登入
+        div(v-if="!isLogin")
+          .text-center
+            button.btn.btn-primary.btn-wide.text-lg(type="button", @click.prevent="googleLogin") 1. 登入 Google 帳號
+          
+          .divider
+        
+        //- 已登入
+        div(v-if="isLogin")
+
+          .form-control
+            label.label.text-lg 您使用的信箱為：
+          .alert.mb-4.rounded-lg
+            p.text-lg.text-yellow-400 {{ email }}
+          
+          h2.mb-4.text-2xl.font-bold 2. 請填寫「姓名」、選擇「天職」
+
+          .form-control.mb-4
+            label.label.text-lg 姓名：
+            input.input.input-primary.input-bordered.w-full(type="text", ref="name", v-model.trim="name")
+          
+          .form-control.mb-8
+            label.label.text-lg 天職：
+            select.select.select-primary.w-full.leading-snug.text-lg(ref="career", v-model="career")
+              option(disabled, selected) 請選擇天職
+              option(value="點傳師") 點傳師
+              option(value="壇主") 壇主
+              option(value="講師") 講師
+              option(value="講員") 講員
+              option(value="辦事人員") 辦事人員
+
+          .text-center
+            button.btn.btn-primary.btn-wide.text-lg(type="button", @click.prevent="submit") 3. 確認並提交
+          
+          .divider
+
+      p.pb-8.text-center.text-sm &copy; 2023 道恩
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.prod.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js")
+    script(src="dist/index.min.js")

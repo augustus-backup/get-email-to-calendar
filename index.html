@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="halloween">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>【道恩行事曆】共享信箱收集</title>
+    <link rel="stylesheet" href="dist/tailwind.min.css"/>
+    <link rel="stylesheet" href="dist/style.min.css"/>
+  </head>
+  <body>
+    <div class="mx-auto p-8 artboard artboard-horizontal phone-1 tracking-widest" id="app">
+      <div class="hero">
+        <div class="hero-content text-center">
+          <div class="max-w-md">
+            <h1 class="mb-4 leading-snug text-5xl font-bold">【道恩行事曆】<br/>共享信箱收集</h1>
+            <template v-if="!success">
+              <p class="mb-4 text-left text-lg">與您分享道務行事曆，依照以下步驟填寫資料即可：</p>
+              <ol class="list-decimal pl-5 text-left text-lg">
+                <li>點擊登入按鈕，登入 Google 帳號</li>
+                <li>填寫「姓名」，選擇「天職」</li>
+                <li>點擊「提交」</li>
+              </ol>
+            </template>
+            <template v-else="v-else">
+              <p class="py-8 text-center font-bold text-2xl text-yellow-400">您的資料已送出。</p>
+            </template>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <template v-if="!success">
+        <div v-if="!isLogin">
+          <div class="text-center">
+            <button class="btn btn-primary btn-wide text-lg" type="button" @click.prevent="googleLogin">1. 登入 Google 帳號</button>
+          </div>
+          <div class="divider"></div>
+        </div>
+        <div v-if="isLogin">
+          <div class="form-control">
+            <label class="label text-lg">您使用的信箱為：</label>
+          </div>
+          <div class="alert mb-4 rounded-lg">
+            <p class="text-lg text-yellow-400">{{ email }}</p>
+          </div>
+          <h2 class="mb-4 text-2xl font-bold">2. 請填寫「姓名」、選擇「天職」</h2>
+          <div class="form-control mb-4">
+            <label class="label text-lg">姓名：</label>
+            <input class="input input-primary input-bordered w-full" type="text" ref="name" v-model.trim="name"/>
+          </div>
+          <div class="form-control mb-8">
+            <label class="label text-lg">天職：</label>
+            <select class="select select-primary w-full leading-snug text-lg" ref="career" v-model="career">
+              <option disabled="disabled" selected="selected">請選擇天職</option>
+              <option value="點傳師">點傳師</option>
+              <option value="壇主">壇主</option>
+              <option value="講師">講師</option>
+              <option value="講員">講員</option>
+              <option value="辦事人員">辦事人員</option>
+            </select>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-primary btn-wide text-lg" type="button" @click.prevent="submit">3. 確認並提交</button>
+          </div>
+          <div class="divider"></div>
+        </div>
+      </template>
+      <p class="pb-8 text-center text-sm">&copy; 2023 道恩</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.prod.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="dist/index.min.js"></script>
+  </body>
+</html>

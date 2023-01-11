@@ -1,0 +1,17 @@
+{
+  "name": "letswrite-firebase-auth-google-fb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "css:dev": "npx tailwindcss -c ./tailwind.config.js -i ./src/tailwind.css -o ./dist/tailwind.min.css --watch",
+    "css:build": "npx tailwindcss -c ./tailwind.config.js -i ./src/tailwind.css -o ./dist/tailwind.min.css --minify"
+  },
+  "dependencies": {
+    "firebase": "^9.4.0"
+  },
+  "devDependencies": {
+    "daisyui": "^2.46.1",
+    "tailwindcss": "^3.2.4"
+  }
+}
